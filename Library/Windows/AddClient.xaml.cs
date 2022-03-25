@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,20 +26,106 @@ namespace Library.Windows
         public AddClient()
         {
             InitializeComponent();
+            isEdit = false;
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            var resultClick = MessageBox.Show("Вы уверены?", "Подтвердите");
-            if (resultClick == MessageBoxResult.Yes)
-            {
-                DB.Client newClient = new DB.Client();
-                newClient.LastName = txtLastName.Text;
-                newClient.FirstName = txtFirstName.Text;
-                newClient.Phone = txtPhone.Text;
-                newClient.Password = txtPassword.Text;
+            // Валидация
 
-                AppData.Context.Client.Add(newClient);
+            // проверка на пустоту
+            if (string.IsNullOrWhiteSpace(txtLastName.Text))
+            {
+                MessageBox.Show("Поле Фамилия не должно быть пустым", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtFirstName.Text))
+            {
+                MessageBox.Show("Поле Имя не должно быть пустым", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtPhone.Text))
+            {
+                MessageBox.Show("Поле Телефон не должно быть пустым", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // проверка на количество символов
+
+            if (txtLastName.Text.Length > 100)
+            {
+                MessageBox.Show("Недопустимое количесво символов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (txtFirstName.Text.Length > 100)
+            {
+                MessageBox.Show("Недопустимое количесво символов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (txtPhone.Text.Length > 12)
+            {
+                MessageBox.Show("Недопустимое количесво символов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (isEdit)
+            {
+                try
+                {
+                    editReader.LastName = txtLastName.Text;
+                    editReader.FirstName = txtFirstName.Text;
+                    editReader.Phone = txtPhone.Text;
+
+                    if (pathPhoto != null)
+                    {
+                        editReader.Photo = File.ReadAllBytes(pathPhoto);
+                    }
+
+                    AppData.Context.SaveChanges();
+                    MessageBox.Show("Успех", "Данные читателя успешно изменены", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+
+            }
+            else
+            {
+                try
+                {
+                    var resultClick = MessageBox.Show("Вы уверены?", "Подтверите добавление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (resultClick == MessageBoxResult.Yes)
+                    {
+                        // Добавление нового читателя
+                        DB.Client newClient = new DB.Client();
+                        newClient.LastName = txtLastName.Text;
+                        newClient.FirstName = txtFirstName.Text;
+                        newClient.Phone = txtPhone.Text;
+                        newClient.Password = txtPassword.Text;
+
+                        if (pathPhoto != null)
+                        {
+                            newClient.Photo = File.ReadAllBytes(pathPhoto);
+                        }
+
+                        AppData.Context.Client.Add(newClient);
+
+                        AppData.Context.SaveChanges();
+                        MessageBox.Show("Успех", "Пользователь успешно добавлен", MessageBoxButton.OK, MessageBoxImage.Information);
+                        this.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+
             }
         }
 

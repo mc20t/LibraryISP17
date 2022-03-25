@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Library.Windows"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="BookList" Height="450" Width="800">
+        Title="Книги" Height="450" Width="800">
     
     <Grid>
         <Grid.RowDefinitions>

@@ -144,7 +144,7 @@
                 Foreground="White" 
                 Click="btnDel_Click"/>
             <Button x:Name="btnAdd"
-                Content="Добавить"
+                Content="Изменить"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="16"

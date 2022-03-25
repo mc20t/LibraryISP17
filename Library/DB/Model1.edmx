@@ -48,6 +48,7 @@
           <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Photo" Type="binary" MaxLength="50" />
         </EntityType>
         <EntityType Name="ClientBooks">
           <Key>
@@ -249,6 +250,7 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ClientBooks" Relationship="Self.FK_ClientBooks_Client" FromRole="Client" ToRole="ClientBooks" />
+          <Property Name="Photo" Type="Binary" MaxLength="50" FixedLength="true" />
         </EntityType>
         <EntityType Name="ClientBooks">
           <Key>
@@ -405,6 +407,7 @@
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="LibraryModel.Client">
               <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
