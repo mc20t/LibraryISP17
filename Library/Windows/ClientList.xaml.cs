@@ -114,7 +114,29 @@ namespace Library.Windows
 
         private void lvReader_KeyUp(object sender, KeyEventArgs e)
         {
+            if (e.Key == Key.Delete || e.Key == Key.Back)
+            {
+                if (lvReader.SelectedItem is Client && lvReader.SelectedIndex != -1)
+                {
+                    try
+                    {
+                        var item = lvReader.SelectedItem as Client;
+                        var resultClick = MessageBox.Show("Вы уверены?", "Подтверите Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (resultClick == MessageBoxResult.Yes)
+                        {
+                            AppData.Context.Client.Remove(item);
+                            AppData.Context.SaveChanges();
+                            MessageBox.Show("Пользователь успешно удален", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                            Filter();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
+                }
 
+            }
         }
     }
 }
