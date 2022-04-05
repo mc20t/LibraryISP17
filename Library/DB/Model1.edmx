@@ -59,6 +59,8 @@
           <Property Name="IDBook" Type="int" Nullable="false" />
           <Property Name="From" Type="datetime" Nullable="false" />
           <Property Name="To" Type="datetime" Nullable="false" />
+          <Property Name="Debt" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="IsBack" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -263,6 +265,8 @@
           <Property Name="To" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Book" Relationship="Self.FK_ClientBooks_Book" FromRole="ClientBooks" ToRole="Book" />
           <NavigationProperty Name="Client" Relationship="Self.FK_ClientBooks_Client" FromRole="ClientBooks" ToRole="Client" />
+          <Property Name="Debt" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
+          <Property Name="IsBack" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -420,6 +424,8 @@
           <EntitySetMapping Name="ClientBooks">
             <EntityTypeMapping TypeName="LibraryModel.ClientBooks">
               <MappingFragment StoreEntitySet="ClientBooks">
+                <ScalarProperty Name="IsBack" ColumnName="IsBack" />
+                <ScalarProperty Name="Debt" ColumnName="Debt" />
                 <ScalarProperty Name="IDClient" ColumnName="IDClient" />
                 <ScalarProperty Name="IDBook" ColumnName="IDBook" />
                 <ScalarProperty Name="From" ColumnName="From" />

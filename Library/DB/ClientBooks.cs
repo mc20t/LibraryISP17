@@ -18,6 +18,8 @@ namespace Library.DB
         public int IDBook { get; set; }
         public System.DateTime From { get; set; }
         public System.DateTime To { get; set; }
+        public decimal Debt { get; set; }
+        public bool IsBack { get; set; }
     
         public virtual Book Book { get; set; }
         public virtual Client Client { get; set; }
