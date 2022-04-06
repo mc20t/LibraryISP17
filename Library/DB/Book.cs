@@ -18,20 +18,18 @@ namespace Library.DB
         public Book()
         {
             this.ClientBooks = new HashSet<ClientBooks>();
-            this.Author = new HashSet<Author>();
-            this.Genre = new HashSet<Genre>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
         public int Quantity { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
+        public int AuthorID { get; set; }
+        public int GenreID { get; set; }
     
+        public virtual Author Author { get; set; }
+        public virtual Genre Genre { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClientBooks> ClientBooks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Author> Author { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Genre> Genre { get; set; }
     }
 }

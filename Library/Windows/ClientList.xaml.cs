@@ -99,10 +99,10 @@ namespace Library.Windows
 
         private void lvReader_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var editReader = new  DB.Client();
-            if (lvReader.SelectedItem is DB.Client)
+            var editReader = new  Client();
+            if (lvReader.SelectedItem is Client)
             {
-                editReader = lvReader.SelectedItem as DB.Client;
+                editReader = lvReader.SelectedItem as Client;
             }
 
             UpdateClient updateClient = new UpdateClient();

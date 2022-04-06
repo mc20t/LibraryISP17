@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen"
         Title="Книги" Height="450" Width="800">
     
-    <Grid>
+    <Grid Background="Wheat">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
@@ -26,11 +26,11 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding ID}"/>
-                    <GridViewColumn Header="Название" Width="150" DisplayMemberBinding="{Binding Name}"/> 
+                    <GridViewColumn Header="Название" Width="150" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Колличество" Width="130" DisplayMemberBinding="{Binding Quantity}"/>
-                    <GridViewColumn Header="Номер полки" Width="130" DisplayMemberBinding="{Binding Bookshelf.Number}"/>
-                    <GridViewColumn Header="Жанр" Width="150" DisplayMemberBinding="{Binding BookGenre}"/>
-                    <GridViewColumn Header="Автор" Width="150" DisplayMemberBinding="{Binding AuthorBook}"/>
+                    <GridViewColumn Header="Фамилия автора" Width="150" DisplayMemberBinding="{Binding Author.LastName}"/>
+                    <GridViewColumn Header="Имя автора" Width="150" DisplayMemberBinding="{Binding Author.FirstName}"/>
+                    <GridViewColumn Header="Жанр" Width="150" DisplayMemberBinding="{Binding Genre.Name}"/>
                 </GridView>
             </ListView.View>
         </ListView>

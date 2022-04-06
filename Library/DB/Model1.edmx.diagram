@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9d7002bf65d44f12a8caa04ca2fe54fe" Name="Diagram1">
-        <EntityTypeShape EntityType="LibraryModel.Author" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryModel.Book" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryModel.Client" Width="1.5" PointX="8.125" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryModel.ClientBooks" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryModel.Genre" Width="1.5" PointX="1.125" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="LibraryModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="1b83d3ce0a6445cd83e3c7ae46c0f9ae" Name="Diagram1">
+        <EntityTypeShape EntityType="LibraryModel.Author" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.Book" Width="1.5" PointX="3.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.Client" Width="1.5" PointX="7" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.ClientBooks" Width="1.5" PointX="2.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.Genre" Width="1.5" PointX="8" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.sysdiagrams" Width="1.5" PointX="11.125" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="LibraryModel.FK_Book_Author" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryModel.FK_Book_Genre" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryModel.FK_ClientBooks_Book" ManuallyRouted="false" />
         <AssociationConnector Association="LibraryModel.FK_ClientBooks_Client" ManuallyRouted="false" />
-        <AssociationConnector Association="LibraryModel.AuthorBook" ManuallyRouted="false" />
-        <AssociationConnector Association="LibraryModel.BookGenre" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище LibraryModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище LibraryModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Author">
           <Key>
             <PropertyRef Name="ID" />
@@ -13,14 +13,6 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="AuthorBook">
-          <Key>
-            <PropertyRef Name="AuthorID" />
-            <PropertyRef Name="BookID" />
-          </Key>
-          <Property Name="AuthorID" Type="int" Nullable="false" />
-          <Property Name="BookID" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Book">
           <Key>
             <PropertyRef Name="ID" />
@@ -28,14 +20,8 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" />
-        </EntityType>
-        <EntityType Name="BookGenre">
-          <Key>
-            <PropertyRef Name="BookID" />
-            <PropertyRef Name="GenreID" />
-          </Key>
-          <Property Name="BookID" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="AuthorID" Type="int" Nullable="false" />
           <Property Name="GenreID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Client">
@@ -66,7 +52,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -79,50 +65,26 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <Association Name="FK_AuthorBook_Author">
+        <Association Name="FK_Book_Author">
           <End Role="Author" Type="Self.Author" Multiplicity="1" />
-          <End Role="AuthorBook" Type="Self.AuthorBook" Multiplicity="*" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Author">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="AuthorBook">
+            <Dependent Role="Book">
               <PropertyRef Name="AuthorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AuthorBook_Book">
-          <End Role="Book" Type="Self.Book" Multiplicity="1" />
-          <End Role="AuthorBook" Type="Self.AuthorBook" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="AuthorBook">
-              <PropertyRef Name="BookID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BookGenre_Book">
-          <End Role="Book" Type="Self.Book" Multiplicity="1" />
-          <End Role="BookGenre" Type="Self.BookGenre" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Book">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="BookGenre">
-              <PropertyRef Name="BookID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BookGenre_Genre">
+        <Association Name="FK_Book_Genre">
           <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
-          <End Role="BookGenre" Type="Self.BookGenre" Multiplicity="*" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Genre">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="BookGenre">
+            <Dependent Role="Book">
               <PropertyRef Name="GenreID" />
             </Dependent>
           </ReferentialConstraint>
@@ -184,28 +146,18 @@
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="Хранилище LibraryModelContainer">
           <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AuthorBook" EntityType="Self.AuthorBook" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BookGenre" EntityType="Self.BookGenre" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientBooks" EntityType="Self.ClientBooks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_AuthorBook_Author" Association="Self.FK_AuthorBook_Author">
+          <AssociationSet Name="FK_Book_Author" Association="Self.FK_Book_Author">
             <End Role="Author" EntitySet="Author" />
-            <End Role="AuthorBook" EntitySet="AuthorBook" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AuthorBook_Book" Association="Self.FK_AuthorBook_Book">
             <End Role="Book" EntitySet="Book" />
-            <End Role="AuthorBook" EntitySet="AuthorBook" />
           </AssociationSet>
-          <AssociationSet Name="FK_BookGenre_Book" Association="Self.FK_BookGenre_Book">
-            <End Role="Book" EntitySet="Book" />
-            <End Role="BookGenre" EntitySet="BookGenre" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BookGenre_Genre" Association="Self.FK_BookGenre_Genre">
+          <AssociationSet Name="FK_Book_Genre" Association="Self.FK_Book_Genre">
             <End Role="Genre" EntitySet="Genre" />
-            <End Role="BookGenre" EntitySet="BookGenre" />
+            <End Role="Book" EntitySet="Book" />
           </AssociationSet>
           <AssociationSet Name="FK_ClientBooks_Book" Association="Self.FK_ClientBooks_Book">
             <End Role="Book" EntitySet="Book" />
@@ -216,7 +168,8 @@
             <End Role="ClientBooks" EntitySet="ClientBooks" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -227,7 +180,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Book" Relationship="Self.AuthorBook" FromRole="Author" ToRole="Book" />
+          <NavigationProperty Name="Book" Relationship="Self.FK_Book_Author" FromRole="Author" ToRole="Book" />
         </EntityType>
         <EntityType Name="Book">
           <Key>
@@ -236,10 +189,12 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="AuthorID" Type="Int32" Nullable="false" />
+          <Property Name="GenreID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Author" Relationship="Self.FK_Book_Author" FromRole="Book" ToRole="Author" />
+          <NavigationProperty Name="Genre" Relationship="Self.FK_Book_Genre" FromRole="Book" ToRole="Genre" />
           <NavigationProperty Name="ClientBooks" Relationship="Self.FK_ClientBooks_Book" FromRole="Book" ToRole="ClientBooks" />
-          <NavigationProperty Name="Author" Relationship="Self.AuthorBook" FromRole="Book" ToRole="Author" />
-          <NavigationProperty Name="Genre" Relationship="Self.BookGenre" FromRole="Book" ToRole="Genre" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -251,8 +206,8 @@
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="ClientBooks" Relationship="Self.FK_ClientBooks_Client" FromRole="Client" ToRole="ClientBooks" />
           <Property Name="Photo" Type="Binary" MaxLength="50" FixedLength="true" />
+          <NavigationProperty Name="ClientBooks" Relationship="Self.FK_ClientBooks_Client" FromRole="Client" ToRole="ClientBooks" />
         </EntityType>
         <EntityType Name="ClientBooks">
           <Key>
@@ -263,18 +218,18 @@
           <Property Name="IDBook" Type="Int32" Nullable="false" />
           <Property Name="From" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="To" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Debt" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="IsBack" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Book" Relationship="Self.FK_ClientBooks_Book" FromRole="ClientBooks" ToRole="Book" />
           <NavigationProperty Name="Client" Relationship="Self.FK_ClientBooks_Client" FromRole="ClientBooks" ToRole="Client" />
-          <Property Name="Debt" Type="Decimal" Nullable="false" Precision="7" Scale="2" />
-          <Property Name="IsBack" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Book" Relationship="Self.BookGenre" FromRole="Genre" ToRole="Book" />
+          <NavigationProperty Name="Book" Relationship="Self.FK_Book_Genre" FromRole="Genre" ToRole="Book" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -286,6 +241,30 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <Association Name="FK_Book_Author">
+          <End Role="Author" Type="Self.Author" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="AuthorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_Genre">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="GenreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ClientBooks_Book">
           <End Role="Book" Type="Self.Book" Multiplicity="1" />
           <End Role="ClientBooks" Type="Self.ClientBooks" Multiplicity="*" />
@@ -310,14 +289,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="AuthorBook">
-          <End Role="Author" Type="Self.Author" Multiplicity="*" />
-          <End Role="Book" Type="Self.Book" Multiplicity="*" />
-        </Association>
-        <Association Name="BookGenre">
-          <End Role="Book" Type="Self.Book" Multiplicity="*" />
-          <End Role="Genre" Type="Self.Genre" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="LibraryEntities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Author" EntityType="Self.Author" />
           <EntitySet Name="Book" EntityType="Self.Book" />
@@ -325,6 +296,14 @@
           <EntitySet Name="ClientBooks" EntityType="Self.ClientBooks" />
           <EntitySet Name="Genre" EntityType="Self.Genre" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_Book_Author" Association="Self.FK_Book_Author">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_Genre" Association="Self.FK_Book_Genre">
+            <End Role="Genre" EntitySet="Genre" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
           <AssociationSet Name="FK_ClientBooks_Book" Association="Self.FK_ClientBooks_Book">
             <End Role="Book" EntitySet="Book" />
             <End Role="ClientBooks" EntitySet="ClientBooks" />
@@ -332,14 +311,6 @@
           <AssociationSet Name="FK_ClientBooks_Client" Association="Self.FK_ClientBooks_Client">
             <End Role="Client" EntitySet="Client" />
             <End Role="ClientBooks" EntitySet="ClientBooks" />
-          </AssociationSet>
-          <AssociationSet Name="AuthorBook" Association="Self.AuthorBook">
-            <End Role="Author" EntitySet="Author" />
-            <End Role="Book" EntitySet="Book" />
-          </AssociationSet>
-          <AssociationSet Name="BookGenre" Association="Self.BookGenre">
-            <End Role="Book" EntitySet="Book" />
-            <End Role="Genre" EntitySet="Genre" />
           </AssociationSet>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -405,31 +376,33 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+                <ScalarProperty Name="GenreID" ColumnName="GenreID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="LibraryModel.Client">
               <MappingFragment StoreEntitySet="Client">
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ClientBooks">
             <EntityTypeMapping TypeName="LibraryModel.ClientBooks">
               <MappingFragment StoreEntitySet="ClientBooks">
-                <ScalarProperty Name="IsBack" ColumnName="IsBack" />
-                <ScalarProperty Name="Debt" ColumnName="Debt" />
                 <ScalarProperty Name="IDClient" ColumnName="IDClient" />
                 <ScalarProperty Name="IDBook" ColumnName="IDBook" />
                 <ScalarProperty Name="From" ColumnName="From" />
                 <ScalarProperty Name="To" ColumnName="To" />
+                <ScalarProperty Name="Debt" ColumnName="Debt" />
+                <ScalarProperty Name="IsBack" ColumnName="IsBack" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -452,22 +425,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AuthorBook" TypeName="LibraryModel.AuthorBook" StoreEntitySet="AuthorBook">
-            <EndProperty Name="Author">
-              <ScalarProperty Name="ID" ColumnName="AuthorID" />
-            </EndProperty>
-            <EndProperty Name="Book">
-              <ScalarProperty Name="ID" ColumnName="BookID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="BookGenre" TypeName="LibraryModel.BookGenre" StoreEntitySet="BookGenre">
-            <EndProperty Name="Book">
-              <ScalarProperty Name="ID" ColumnName="BookID" />
-            </EndProperty>
-            <EndProperty Name="Genre">
-              <ScalarProperty Name="ID" ColumnName="GenreID" />
-            </EndProperty>
-          </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище LibraryModel.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище LibraryModel.sp_creatediagram" />
           <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище LibraryModel.sp_dropdiagram" />
@@ -507,7 +464,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
       </DesignerInfoPropertySet>

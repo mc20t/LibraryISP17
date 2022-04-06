@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Клиенты" Height="500" Width="900"
         WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid Background="Wheat">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>

@@ -13,7 +13,7 @@ namespace UnitTestProject1
             //arrange
             DateTime dateStart = new DateTime(2021, 03, 31);
             double costBook = 1000;
-            double ex = 3350;
+            double ex = 3410;
 
             //act
             double res = DebtRationClass.Debt(costBook, dateStart);
@@ -133,7 +133,7 @@ namespace UnitTestProject1
             //arrange
             DateTime dateStart = new DateTime(2012, 03, 31);
             double costBook = 100;
-            double ex = 3622;
+            double ex = 3628;
 
             //act
             double res = DebtRationClass.Debt(costBook, dateStart);

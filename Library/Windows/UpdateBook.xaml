@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Редактор" Height="450" Width="600">
-    <Grid>
+    <Grid Background="Wheat">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
@@ -41,19 +41,19 @@
                    FontSize="16"
                    Grid.Row="2"
                    Margin="0 0 10 0"/>
-        <TextBlock Text="Номер полки"
+        <TextBlock Text="Фамилия автора"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    FontSize="16"
                    Grid.Row="3"
                    Margin="0 0 10 0"/>
-        <TextBlock Text="Жанры"
+        <TextBlock Text="Имя автора"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    FontSize="16"
                    Grid.Row="4"
                    Margin="0 0 10 0"/>
-        <TextBlock Text="Авторы"
+        <TextBlock Text="Жанр"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    FontSize="16"
