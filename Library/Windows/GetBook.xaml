@@ -1,4 +1,4 @@
-﻿<Window x:Class="Library.Windows.BookList"
+﻿<Window x:Class="Library.Windows.GetBook"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Library.Windows"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Книги" Height="450" Width="800">
-    
+        Title="Выдача книг" Height="450" Width="800">
+
     <Grid Background="Wheat">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -16,31 +16,29 @@
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Список книг"
+        <TextBlock Text="Выдача книг"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontSize="25"/>
 
         <ListView x:Name="lvReader"
                   KeyUp="lvReader_KeyUp"
-                  MouseDoubleClick="lvReader_MouseDoubleBook"
+                  MouseDoubleClick="lvReader_MouseDoubleGetBook"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   Grid.Row="3">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding ID}"/>
-                    <GridViewColumn Header="Название" Width="150" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Колличество" Width="130" DisplayMemberBinding="{Binding Quantity}"/>
-                    <GridViewColumn Header="Фамилия автора" Width="150" DisplayMemberBinding="{Binding Author.LastName}"/>
-                    <GridViewColumn Header="Имя автора" Width="150" DisplayMemberBinding="{Binding Author.FirstName}"/>
-                    <GridViewColumn Header="Жанр" Width="150" DisplayMemberBinding="{Binding Genre.Name}"/>
+                    <GridViewColumn Header="Фамилия" Width="150" DisplayMemberBinding="{Binding Client.LastName}"/>
+                    <GridViewColumn Header="Имя" Width="150" DisplayMemberBinding="{Binding Client.FirstName}"/>
+                    <GridViewColumn Header="Книга" Width="150" DisplayMemberBinding="{Binding Book.Name}"/>
+                    <GridViewColumn Header="Дата выдачи" Width="120" DisplayMemberBinding="{Binding ClientBooks.From}"/>
+                    <GridViewColumn Header="Дата возврата" Width="120" DisplayMemberBinding="{Binding ClientBooks.To}"/>
+                    <GridViewColumn Header="Сумма долга" Width="100" DisplayMemberBinding="{Binding ClientBooks.Debt}"/>
                 </GridView>
             </ListView.View>
         </ListView>
 
-        <WrapPanel Grid.Row="1" Grid.RowSpan="2"
-                   VerticalAlignment="Center" 
-                   HorizontalAlignment="Center">
+        <WrapPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button x:Name="btnExit"
                 Content="Exit"
                 HorizontalAlignment="Left"
@@ -62,6 +60,7 @@
                       Width="150"
                       Margin="20 0" 
                       SelectionChanged="cmbSort_SelectionChanged"/>
+            
             <Button x:Name="btdAddClient"
                 Width="100"
                 Height="30"
@@ -73,5 +72,30 @@
                 Click="btdAddClient_Click"/>
         </WrapPanel>
 
+        <WrapPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Дата выдачи"
+                       Margin="20 0 0 0"
+                       FontSize="18"
+                       FontFamily="Helvetica"
+                       FontStyle="Normal"
+                       FontStretch="Normal"/>
+
+            <DatePicker x:Name="dpDateStart"
+                        Margin="10 0 0 0"
+                        SelectedDateFormat="Short"
+                        IsDropDownOpen="False"/>
+
+            <TextBlock Text="Дата возврата"
+                       Margin="20 0 0 0"
+                       FontSize="18"
+                       FontFamily="Helvetica"
+                       FontStyle="Normal"
+                       FontStretch="Normal"/>
+
+            <DatePicker x:Name="dpDateEnd"
+                        Margin="10 0 0 0"
+                        SelectedDateFormat="Short"
+                        IsDropDownOpen="False"/>
+        </WrapPanel>
     </Grid>
 </Window>

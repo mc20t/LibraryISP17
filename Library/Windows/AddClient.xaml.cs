@@ -19,14 +19,11 @@ namespace Library.Windows
 {
     public partial class AddClient : Window
     {
-        DB.Client editReader = new DB.Client();
-        bool isEdit = true; // изменяем или добавляем пользователя
         string pathPhoto = null; // Для сохранения пути к изображению
 
         public AddClient()
         {
             InitializeComponent();
-            isEdit = false;
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -52,6 +49,12 @@ namespace Library.Windows
                 return;
             }
 
+            if (string.IsNullOrWhiteSpace(txtPassword.Text))
+            {
+                MessageBox.Show("Поле Пароль не должно быть пустым", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             // проверка на количество символов
 
             if (txtLastName.Text.Length > 100)
@@ -72,60 +75,33 @@ namespace Library.Windows
                 return;
             }
 
-            if (isEdit)
+            try
             {
-                try
+                var resultClick = MessageBox.Show("Вы уверены?", "Подтвердите добавление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (resultClick == MessageBoxResult.Yes)
                 {
-                    editReader.LastName = txtLastName.Text;
-                    editReader.FirstName = txtFirstName.Text;
-                    editReader.Phone = txtPhone.Text;
+                    // Добавление нового читателя
+                    DB.Client newClient = new DB.Client();
+                    newClient.LastName = txtLastName.Text;
+                    newClient.FirstName = txtFirstName.Text;
+                    newClient.Phone = txtPhone.Text;
+                    newClient.Password = txtPassword.Text;
 
                     if (pathPhoto != null)
                     {
-                        editReader.Photo = File.ReadAllBytes(pathPhoto);
+                        newClient.Photo = File.ReadAllBytes(pathPhoto);
                     }
+
+                    AppData.Context.Client.Add(newClient);
 
                     AppData.Context.SaveChanges();
-                    MessageBox.Show("Успех", "Данные читателя успешно изменены", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Успех", "Пользователь успешно добавлен", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString());
-                }
-
             }
-            else
+            catch (Exception ex)
             {
-                try
-                {
-                    var resultClick = MessageBox.Show("Вы уверены?", "Подтверите добавление", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (resultClick == MessageBoxResult.Yes)
-                    {
-                        // Добавление нового читателя
-                        DB.Client newClient = new DB.Client();
-                        newClient.LastName = txtLastName.Text;
-                        newClient.FirstName = txtFirstName.Text;
-                        newClient.Phone = txtPhone.Text;
-                        newClient.Password = txtPassword.Text;
-
-                        if (pathPhoto != null)
-                        {
-                            newClient.Photo = File.ReadAllBytes(pathPhoto);
-                        }
-
-                        AppData.Context.Client.Add(newClient);
-
-                        AppData.Context.SaveChanges();
-                        MessageBox.Show("Успех", "Пользователь успешно добавлен", MessageBoxButton.OK, MessageBoxImage.Information);
-                        this.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString());
-                }
-
+                MessageBox.Show(ex.Message.ToString());
             }
         }
 

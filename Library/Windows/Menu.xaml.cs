@@ -43,5 +43,11 @@ namespace Library.Windows
             BookList bookList = new BookList();
             bookList.Show();
         }
+
+        private void btn_Click(object sender, RoutedEventArgs e)
+        {
+            GetBook getBook = new GetBook();
+            getBook.Show();
+        }
     }
 }

@@ -55,7 +55,8 @@
                     Width="200"
                     Height="40"
                     FontSize="18"
-                    Margin="10 0"/>
+                    Margin="10 0" 
+                    Click="btn_Click"/>
 
         </WrapPanel>
 

@@ -23,7 +23,6 @@ namespace Library.Windows
     public partial class UpdateClient : Window
     {
         DB.Client editClient = new DB.Client();
-        bool isEdit = true; // изменяем или добавляем пользователя
         string pathPhoto = null; // Для сохранения пути к изображению
 
         public UpdateClient()
@@ -50,15 +49,10 @@ namespace Library.Windows
                 }
             }
 
-            editClient = client;
-
             txtLastName.Text = editClient.LastName;
             txtFirstName.Text = editClient.FirstName;
             txtPhone.Text = editClient.Phone;
             txtPassword.Text = editClient.Password;
-
-            isEdit = true;
-
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -104,67 +98,27 @@ namespace Library.Windows
                 return;
             }
 
-            if (isEdit)
+            try
             {
-                try
-                {
-                    editClient.LastName = txtLastName.Text;
-                    editClient.FirstName = txtFirstName.Text;
-                    editClient.Phone = txtPhone.Text;
-                    editClient.Password = txtPassword.Text;
+                editClient.LastName = txtLastName.Text;
+                editClient.FirstName = txtFirstName.Text;
+                editClient.Phone = txtPhone.Text;
+                editClient.Password = txtPassword.Text;
 
-                    if (pathPhoto != null)
-                    {
-                        editClient.Photo = File.ReadAllBytes(pathPhoto);
-                    }
-
-                    AppData.Context.SaveChanges();
-                    MessageBox.Show("Успех", "Данные читателя успешно изменены", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.Close();
-                }
-                catch (Exception ex)
+                if (pathPhoto != null)
                 {
-                    MessageBox.Show(ex.Message.ToString());
+                    editClient.Photo = File.ReadAllBytes(pathPhoto);
                 }
 
+                AppData.Context.SaveChanges();
+                MessageBox.Show("Успех", "Данные читателя успешно изменены", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
             }
-            else
+            catch (Exception ex)
             {
-                try
-                {
-                    var resultClick = MessageBox.Show("Вы уверены?", "Подтверите добавление", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (resultClick == MessageBoxResult.Yes)
-                    {
-                        // Добавление нового читателя
-                        DB.Client newReader = new DB.Client();
-                        newReader.LastName = txtLastName.Text;
-                        newReader.FirstName = txtFirstName.Text;
-                        newReader.Phone = txtPhone.Text;
-                        newReader.Password = txtPassword.Text;
-
-                        if (pathPhoto != null)
-                        {
-                            newReader.Photo = File.ReadAllBytes(pathPhoto);
-                        }
-
-                        AppData.Context.Client.Add(newReader);
-
-                        AppData.Context.SaveChanges();
-                        MessageBox.Show("Успех", "Пользователь успешно добавлен", MessageBoxButton.OK, MessageBoxImage.Information);
-                        this.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString());
-                }
-
+                MessageBox.Show(ex.Message.ToString());
             }
-        }
-
-        private void btnDel_Click(object sender, RoutedEventArgs e)
-        {
-            editClient.IsDeleted = true;
+            
         }
 
         private void btnImage_Click(object sender, RoutedEventArgs e)

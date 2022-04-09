@@ -125,7 +125,9 @@
 
         </ListView>
 
-        <WrapPanel Grid.Row="1" VerticalAlignment="Center">
+        <WrapPanel Grid.Row="1" Grid.RowSpan="2"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center">
             <Button x:Name="btnExit"
                 Content="Exit"
                 HorizontalAlignment="Left"

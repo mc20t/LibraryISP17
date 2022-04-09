@@ -19,13 +19,13 @@ using static Library.ClassHelper.AppData;
 namespace Library.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для BookList.xaml
+    /// Логика взаимодействия для GetBook.xaml
     /// </summary>
-    public partial class BookList : Window
+    public partial class GetBook : Window
     {
-        List<Book> bookList = new List<Book>();
-        List<string> listSort = new List<string>() { "По умолчанию", "По названию", "По колличеству книг", "По фамилии автора", "По имени автора", "По жанру" };
-        public BookList()
+        List<ClientBooks> ClientBooksList = new List<ClientBooks>();
+        List<string> listSort = new List<string>() { "По фамилии", "По имени", "По книге", "По дате выдачи", "По дате возврата", "По сумме долга" };
+        public GetBook()
         {
             InitializeComponent();
 
@@ -37,51 +37,53 @@ namespace Library.Windows
 
         private void Filter()
         {
-            bookList = AppData.Context.Book.ToList();
-            bookList = bookList.
+            ClientBooksList = AppData.Context.ClientBooks.ToList();
+            ClientBooksList = ClientBooksList.
                 Where(i =>
-                    i.Name.ToLower().Contains(txtSearch.Text.ToLower()) ||
-                    i.Quantity.ToString().ToLower().Contains(txtSearch.Text.ToLower()) ||
-                    i.Author.LastName.ToLower().Contains(txtSearch.Text.ToLower()) ||
-                    i.Author.FirstName.ToLower().Contains(txtSearch.Text.ToLower()) ||
-                    i.Genre.Name.ToLower().Contains(txtSearch.Text.ToLower())
+                    i.Client.LastName.ToLower().Contains(txtSearch.Text.ToLower()) ||
+                    i.Client.FirstName.ToLower().Contains(txtSearch.Text.ToLower()) ||
+                    i.Book.Name.ToLower().Contains(txtSearch.Text.ToLower()) ||
+                    i.From.ToString().ToLower().Contains(txtSearch.Text.ToLower()) ||
+                    i.To.ToString().ToLower().Contains(txtSearch.Text.ToLower()) ||
+                    i.Debt.ToString().ToLower().Contains(txtSearch.Text.ToLower())
                 ).ToList();
 
             switch (cmbSort.SelectedIndex)
             {
                 case 0:
-                    bookList = bookList.OrderBy(i => i.ID).ToList();
+                    ClientBooksList = ClientBooksList.OrderBy(i => i.Client.LastName).ToList();
                     break;
                 case 1:
-                    bookList = bookList.OrderBy(i => i.Name).ToList();
+                    ClientBooksList = ClientBooksList.OrderBy(i => i.Client.FirstName).ToList();
                     break;
                 case 2:
-                    bookList = bookList.OrderBy(i => i.Quantity).ToList();
+                    ClientBooksList = ClientBooksList.OrderBy(i => i.Book.Name).ToList();
                     break;
                 case 3:
-                    bookList = bookList.OrderBy(i => i.Author.LastName).ToList();
+                    ClientBooksList = ClientBooksList.OrderBy(i => i.From).ToList();
                     break;
                 case 4:
-                    bookList = bookList.OrderBy(i => i.Author.FirstName).ToList();
+                    ClientBooksList = ClientBooksList.OrderBy(i => i.To).ToList();
                     break;
                 case 5:
-                    bookList = bookList.OrderBy(i => i.Genre.Name).ToList();
+                    ClientBooksList = ClientBooksList.OrderBy(i => i.Debt).ToList();
                     break;
                 default:
-                    bookList = bookList.OrderBy(i => i.ID).ToList();
+                    ClientBooksList = ClientBooksList.OrderBy(i => i.From).ToList();
                     break;
             }
 
-            lvReader.ItemsSource = bookList;
+            lvReader.ItemsSource = ClientBooksList;
         }
 
         private void btdAddClient_Click(object sender, RoutedEventArgs e)
         {
-            AddBook addBook = new AddBook();
+            AddGetBook addGetBook = new AddGetBook();
             this.Opacity = 0.2;
-            addBook.ShowDialog();
+            addGetBook.ShowDialog();
             lvReader.ItemsSource = AppData.Context.Client.ToList();
             this.Opacity = 1;
+            Filter();
         }
 
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -99,34 +101,35 @@ namespace Library.Windows
             this.Close();
         }
 
-        private void lvReader_MouseDoubleBook(object sender, MouseButtonEventArgs e)
+        private void lvReader_MouseDoubleGetBook(object sender, MouseButtonEventArgs e)
         {
-            var editReader = new Book();
-            if (lvReader.SelectedItem is Book)
+            var editReader = new ClientBooks();
+            if (lvReader.SelectedItem is ClientBooks)
             {
-                editReader = lvReader.SelectedItem as Book;
+                editReader = lvReader.SelectedItem as ClientBooks;
             }
 
-            UpdateBook updateBook = new UpdateBook();
+            UpdateGetBook updateGetBook = new UpdateGetBook();
             this.Opacity = 0.2;
-            updateBook.ShowDialog();
-            lvReader.ItemsSource = AppData.Context.Book.ToList();
+            updateGetBook.ShowDialog();
+            lvReader.ItemsSource = AppData.Context.ClientBooks.ToList();
             this.Opacity = 1;
+            Filter();
         }
 
         private void lvReader_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Delete || e.Key == Key.Back)
             {
-                if (lvReader.SelectedItem is Book && lvReader.SelectedIndex != -1)
+                if (lvReader.SelectedItem is ClientBooks && lvReader.SelectedIndex != -1)
                 {
                     try
                     {
-                        var item = lvReader.SelectedItem as Book;
+                        var item = lvReader.SelectedItem as ClientBooks;
                         var resultClick = MessageBox.Show("Вы уверены?", "Подтверите Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (resultClick == MessageBoxResult.Yes)
                         {
-                            AppData.Context.Book.Remove(item);
+                            AppData.Context.ClientBooks.Remove(item);
                             AppData.Context.SaveChanges();
                             MessageBox.Show("Пользователь успешно удален", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                             Filter();

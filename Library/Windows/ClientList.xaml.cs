@@ -121,7 +121,7 @@ namespace Library.Windows
                     try
                     {
                         var item = lvReader.SelectedItem as Client;
-                        var resultClick = MessageBox.Show("Вы уверены?", "Подтверите Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        var resultClick = MessageBox.Show("Вы уверены?", "Подтвердите удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
                         if (resultClick == MessageBoxResult.Yes)
                         {
                             AppData.Context.Client.Remove(item);
