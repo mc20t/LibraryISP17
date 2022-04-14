@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Library.Windows"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Добавление книги" Height="450" Width="600">
+        Height="420" Width="700">
     <Grid Background="Wheat">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -24,32 +24,41 @@
 
         <!-- Первая колонка -->
 
+        <Image Source="/Images/on-the-table-at-library-blurred-background_srzsdgyye_thumbnail-full01.png" 
+               Grid.RowSpan="7"
+               Grid.ColumnSpan="2"/>
+
         <TextBlock Text="Добавление книги"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
+                   Foreground="White"
                    FontSize="25" 
                    Grid.ColumnSpan="2"/>
         <TextBlock Text="Название"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    FontSize="16"
+                   Foreground="White"
                    Grid.Row="1"
                    Margin="0 0 10 0"/>
-        <TextBlock Text="Колличество"
+        <TextBlock Text="Количество"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    FontSize="16"
+                   Foreground="White"
                    Grid.Row="2"
                    Margin="0 0 10 0"/>
         <TextBlock Text="Автор"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    FontSize="16"
+                   Foreground="White"
                    Grid.Row="3"
                    Margin="0 0 10 0"/>
         <TextBlock Text="Жанр"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
+                   Foreground="White"
                    FontSize="16"
                    Grid.Row="4"
                    Margin="0 0 10 0"/>
@@ -86,7 +95,8 @@
                  VerticalContentAlignment="Center"
                  Grid.Column="1"
                  Grid.Row="3"
-                 Height="30"/>
+                 Height="30" 
+                 SelectionChanged="cmbAuthor_SelectionChanged"/>
         <ComboBox x:Name="cmbGenre"
                  HorizontalAlignment="Left"
                  Margin="10 0 0 0"

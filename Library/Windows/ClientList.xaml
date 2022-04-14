@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Library.Windows"
         mc:Ignorable="d"
-        Title="Клиенты" Height="500" Width="900"
+        Height="500" Width="900"
         WindowStartupLocation="CenterScreen">
     <Grid Background="Wheat">
         <Grid.RowDefinitions>
@@ -25,17 +25,6 @@
                   KeyUp="lvReader_KeyUp"
                   MouseDoubleClick="lvReader_MouseDoubleClick"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <!--<ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Header="Фамилия" Width="100" DisplayMemberBinding="{Binding LastName}"/>
-                    <GridViewColumn Header="Имя" Width="100" DisplayMemberBinding="{Binding FirstName}"/>
-                    <GridViewColumn Header="Телефон" Width="100" DisplayMemberBinding="{Binding Phone}"/>
-                    <GridViewColumn Header="Email" Width="150" DisplayMemberBinding="{Binding Email}"/>
-                    <GridViewColumn Header="Пол" Width="100" DisplayMemberBinding="{Binding Gender.NameGender}"/>
-                    <GridViewColumn Header="Адрес" Width="200" DisplayMemberBinding="{Binding Address}"/>
-                </GridView>
-            </ListView.View>-->
 
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>

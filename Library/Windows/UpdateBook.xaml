@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Library.Windows"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Редактор" Height="450" Width="600">
+        Height="420" Width="700">
     <Grid Background="Wheat">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -22,29 +22,37 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
+        <Image Source="/Images/on-the-table-at-library-blurred-background_srzsdgyye_thumbnail-full01.png" 
+               Grid.RowSpan="7"
+               Grid.ColumnSpan="2"/>
+
         <!-- Первая колонка -->
 
         <TextBlock Text="Изменение книги"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontSize="25" 
+                   Foreground="White"
                    Grid.ColumnSpan="2"/>
         <TextBlock Text="Название"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    FontSize="16"
+                   Foreground="White"
                    Grid.Row="1"
                    Margin="0 0 10 0"/>
-        <TextBlock Text="Колличество"
+        <TextBlock Text="Количество"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    FontSize="16"
+                   Foreground="White"
                    Grid.Row="2"
                    Margin="0 0 10 0"/>
         <TextBlock Text="Автор"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    FontSize="16"
+                   Foreground="White"
                    Grid.Row="3"
                    Margin="0 0 10 0"/>
         <TextBlock Text="Жанр"
@@ -52,6 +60,7 @@
                    HorizontalAlignment="Right"
                    FontSize="16"
                    Grid.Row="4"
+                   Foreground="White"
                    Margin="0 0 10 0"/>
 
 

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Library.Windows"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Редактор" Height="700" Width="600">
+        Height="630" Width="900">
     <Grid Background="Wheat">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -22,10 +22,11 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+
+        <Image Source="/Images/e93b6b680d1265209abec9f66a5b1137.jpg"
+               Grid.ColumnSpan="2"
+               Grid.RowSpan="12"/>
 
         <!-- Первая колонка -->
 
@@ -33,17 +34,23 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontSize="25" 
+                   Background="#7F000000" 
+                   Foreground="White"
                    Grid.ColumnSpan="2"/>
         <TextBlock Text="Фамилия"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    FontSize="16"
                    Grid.Row="1"
+                   Background="#7F000000" 
+                   Foreground="White"
                    Margin="0 0 10 0"/>
         <TextBlock Text="Имя"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    FontSize="16"
+                   Background="#7F000000" 
+                   Foreground="White"
                    Grid.Row="2"
                    Margin="0 0 10 0"/>
         <TextBlock Text="Телефон"
@@ -51,11 +58,15 @@
                    HorizontalAlignment="Right"
                    FontSize="16"
                    Grid.Row="3"
+                   Background="#7F000000" 
+                   Foreground="White"
                    Margin="0 0 10 0"/>
         <TextBlock Text="Пароль"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    FontSize="16"
+                   Background="#7F000000" 
+                   Foreground="White"
                    Grid.Row="4"
                    Margin="0 0 10 0"/>
 
@@ -69,7 +80,7 @@
                  Grid.Column="1"
                  Margin="10 0 0 0"
                  Width="250"
-                 Height="25"/>
+                 Height="30"/>
         <TextBox x:Name="txtFirstName"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Left"
@@ -78,7 +89,7 @@
                  Grid.Column="1"
                  Margin="10 0 0 0"
                  Width="250"
-                 Height="25"/>
+                 Height="30"/>
         <TextBox x:Name="txtPhone"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Left"
@@ -87,7 +98,7 @@
                  Grid.Column="1"
                  Margin="10 0 0 0"
                  Width="250"
-                 Height="25"/>
+                 Height="30"/>
         <TextBox x:Name="txtPassword"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Left"
@@ -96,11 +107,11 @@
                  Grid.Column="1"
                  Margin="10 0 0 0"
                  Width="250"
-                 Height="25"/>
+                 Height="30"/>
 
         <!-- Image block-->
 
-        <Border Grid.Row="7"
+        <Border Grid.Row="5"
                 Grid.Column="0"
                 Grid.RowSpan="3"
                 Grid.ColumnSpan="2"
@@ -119,7 +130,7 @@
                 HorizontalAlignment="Right"
                 FontSize="16"
                 Margin="100 10"
-                Grid.Row="7"
+                Grid.Row="5"
                 Grid.Column="0"
                 Grid.RowSpan="3"
                 Grid.ColumnSpan="2"

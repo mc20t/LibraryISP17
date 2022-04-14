@@ -116,5 +116,10 @@ namespace Library.Windows
 
             }
         }
+
+        private void cmbAuthor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

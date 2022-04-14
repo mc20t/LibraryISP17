@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Library.Windows"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Регистрация выдачи книг" Height="450" Width="600">
+        Height="420" Width="980">
     <Grid Background="Wheat">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -21,13 +21,17 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        
+        <Image Source="/Images/1619023505_20-phonoteka_org-p-fon-knigi-razmitii-22.jpg"
+               Grid.ColumnSpan="2"
+               Grid.RowSpan="7"/>
 
         <!-- Первая колонка -->
 
         <TextBlock Text="Регистрация выдачи книг"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
-                   FontSize="25" 
+                   FontSize="25"
                    Grid.ColumnSpan="2"/>
         <TextBlock Text="Читатель"
                    VerticalAlignment="Center"

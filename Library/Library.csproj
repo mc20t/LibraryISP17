@@ -255,6 +255,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\e93b6b680d1265209abec9f66a5b1137.jpg" />
+    <Resource Include="Images\1619023505_20-phonoteka_org-p-fon-knigi-razmitii-22.jpg" />
+    <Resource Include="Images\on-the-table-at-library-blurred-background_srzsdgyye_thumbnail-full01.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
