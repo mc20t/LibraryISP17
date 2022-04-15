@@ -58,3 +58,8 @@
 
 
 ![image](https://user-images.githubusercontent.com/81164509/163424980-3b8f3e85-d7a5-4945-97a0-ba969ac2936c.png)
+
+
+Тестирование
+
+![image](https://user-images.githubusercontent.com/81164509/163531288-3bcc0c6d-37be-4dd1-b7b8-18359dc69171.png)
